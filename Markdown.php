@@ -114,7 +114,7 @@ class MarkdownExtension
 
         // Post-Markdown wiki parsing
         $html = $parser->replaceVariables($html);
-        $html = $parser->doDoubleUnderscore($html);
+        $html = $parser->internalParse($html);
 
         // Parse Markdown
         $html = static::getParser()->text($html);
@@ -129,14 +129,10 @@ class MarkdownExtension
                 return sprintf($external ? '[%s %s]' : '[[%s|%s]]', $url, $text);
             }, $html);
 
-            $html = $parser->replaceInternalLinks($html);
-            $html = $parser->replaceExternalLinks($html);
-            $parser->replaceLinkHolders($html);
+            // $html = $parser->replaceInternalLinks($html);
+            // $html = $parser->replaceExternalLinks($html);
+            // $parser->replaceLinkHolders($html);
         }
-
-        // Post-Markdown wiki parsing
-        $html = $parser->formatHeadings($html, $text);
-        $html = $parser->doMagicLinks($html);
 
         return $html;
     }
